@@ -1,11 +1,4 @@
 <!DOCTYPE html>
-<html>
-<body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
-</body>
-</html>
-<!--
 <html lang="en">
 <head>
 	<title>The Prestige Tree</title>
@@ -363,15 +356,11 @@
 			</div>
 			<div v-if="player.tab=='info'" class="col right" style="overflow-x: hidden;">
 				<button class="back" onclick="showTab('tree')">←</button><br>
-				<h2>Prestige Tree</h2>
+				<h2>The Power Tree</h2>
 				<br>
 				<h3>{{VERSION.withName}}</h3>
 				<br>
-				Made by Jacorb
-				<br>
-				With help by Aarex (made all of v1.1, planned most of v1.2)
-				<br>
-				Idea by papyrus (on discord)
+				Made by Jacklyn
 				<br><br>
 				<div class="link" onclick="showTab('changelog')">Changelog</div><br>
 				<a class="link">Test server</a> (Coming soon!)<br><br>
@@ -437,7 +426,7 @@
 				<div id="version" onclick="showTab('changelog')">{{VERSION.withoutName}}</div>
 				<img id="optionWheel" v-if="player.tab!='options'" src="options_wheel.png" alt="Options" onclick="showTab('options')">
 				<div id="info" v-if="player.tab!='info'" onclick="showTab('info')"><br>i</div>
-				<!-- `rel=noopener` attr prevents reverse tabnabbing (https://owasp.org/www-community/attacks/Reverse_Tabnabbing) --> <!--
+				<!-- `rel=noopener` attr prevents reverse tabnabbing (https://owasp.org/www-community/attacks/Reverse_Tabnabbing) -->
 				<img id="discord" onclick="window.open('https://discord.gg/wwQfgPa','mywindow')" src="discord.png" alt="Discord" rel="noopener">
 				<span v-if="player.devSpeed && player.devSpeed != 1">
 					<br>Dev Speed: {{format(player.devSpeed)}}x<br>
@@ -783,4 +772,3 @@
 	</script>
 </body>
 </html>
--->

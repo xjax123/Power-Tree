@@ -1,2 +1,2 @@
-# Prestige-Tree
-A tree of prestige upgrades
+# Power-Tree
+A Mod For The Prestige Tree focusing on electricity and power.
