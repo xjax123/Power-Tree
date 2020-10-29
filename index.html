@@ -148,7 +148,7 @@
 				<br>
 				<span v-if="player.points.lt('1e1000')">You have </span>
 				<h2 id="points">{{format(player.points)}}</h2>
-				<span v-if="player.points.lt('1e1e6')"> points</span>
+				<span v-if="player.points.lt('1e1e6')"> electrons</span>
 				<br><br><br><br><br>
 				<table>
 					<td><layer-node layer='p' abb='P'></layer-node></td>
@@ -474,8 +474,8 @@
 	<script>
 		// Mod Identifier, for ~~btpt~~ any userscripts. Consider adding this to your mod!
 		const modInfo = {
-			name: "Prestige Tree",
-			id: "default"
+			name: "Power-Tree",
+			id: "pt"
 		}
 	</script>
 </body>
