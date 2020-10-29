@@ -8,13 +8,13 @@ const LAYER_DATA = {
 		type: "normal",
 		exp: new Decimal(.5),
 		row: 1,
-		amtName: "points",
+		amtName: "Electrons",
 		getAmt() { return player.points },
 		shown() { return true },
 	},
 	b: {
 		branches: ["p"],
-		getReq() { 
+		getReq() {
 			let req = new Decimal(200);
 			if (player.g.unl && !player.b.unl) req = req.times(5000)
 			return req;
@@ -37,7 +37,7 @@ const LAYER_DATA = {
 	},
 	g: {
 		branches: ["p"],
-		getReq() { 
+		getReq() {
 			let req = new Decimal(200);
 			if (player.b.unl && !player.g.unl) req = req.times(5000)
 			return req;
@@ -173,7 +173,7 @@ const LAYER_DATA = {
 	},
 	hb: {
 		branches: ["sb","t"],
-		getReq() { 
+		getReq() {
 			let req = new Decimal(12);
 			if (player.hb.order>0) req = new Decimal(15)
 			return req;
@@ -194,7 +194,7 @@ const LAYER_DATA = {
 	},
 	ss: {
 		branches: ["e","s"],
-		getReq() { 
+		getReq() {
 			let req = new Decimal(36);
 			if (player.ss.order>0) req = new Decimal(45)
 			return req;
@@ -247,7 +247,7 @@ const LAYER_DATA = {
 	},
 	ps: {
 		branches: [["h",3],["q",3]],
-		getReq() { 
+		getReq() {
 			return new Decimal("1e5000")
 		},
 		res: "phantom souls",
@@ -255,7 +255,7 @@ const LAYER_DATA = {
 		exp: new Decimal(1.2),
 		base: new Decimal("1e250"),
 		row: 5,
-		eff() { 
+		eff() {
 			let x = player.ps.points
 			if (player.ps.upgrades.includes(12)) x = x.times(1.2)
 			return {
@@ -282,8 +282,8 @@ const LAYER_DATA = {
 	},
 	l: {
 		branches: ["hb","m"],
-		getReq() { 
-			let req = new Decimal(1e195) 
+		getReq() {
+			let req = new Decimal(1e195)
 			if (player.l.order>0) req = new Decimal("1e345")
 			return req;
 		},
@@ -300,8 +300,8 @@ const LAYER_DATA = {
 	},
 	hs: {
 		branches: ["ss","ba"],
-		getReq() { 
-			let req = new Decimal(725) 
+		getReq() {
+			let req = new Decimal(725)
 			if (player.hs.order>0) req = new Decimal(910)
 			return req;
 		},
@@ -317,7 +317,7 @@ const LAYER_DATA = {
 	},
 	i: {
 		branches: ["ss","sg"],
-		getReq() { 
+		getReq() {
 			return new Decimal("1e285")
 		},
 		res: "imperium bricks",
@@ -376,10 +376,10 @@ function rowReset(row, layer) {
 	let keepRow6 = (player.mb.total.gte(3))
 	let keepRow6Milestones = (player.mb.total.gte(2))
 	switch(row) {
-		case 0: 
+		case 0:
 			player.points = new Decimal(0);
 			break;
-		case 1: 
+		case 1:
 			var keepUpgrades = 0
 			if (player.mb.total.gte(1) && keepRows1to4) keepUpgrades = 1
 			else if (player.sp.total.gte(1)) keepUpgrades = 1
@@ -392,7 +392,7 @@ function rowReset(row, layer) {
 			if (!keepUpgrades) player.p.upgrades = []
 			player.g.power = new Decimal(0)
 			break;
-		case 2: 
+		case 2:
 			var keepMilestones = 0
 			if (keepRows1to4) keepMilestones = 1
 			else if (player.h.best.gte(2) || player.q.total.gte(2)) keepMilestones = 1
@@ -413,7 +413,7 @@ function rowReset(row, layer) {
 
 			player.t.energy = new Decimal(0)
 			break
-		case 3: 
+		case 3:
 			player.t.points = new Decimal(0);
 			player.t.order = 0
 			if (player.h.best.lt(2)&&player.m.total.lt(1)&&!(player.mb.total.gte(1) && (keepRows1to4))) player.t.best = new Decimal(0);
@@ -455,7 +455,7 @@ function rowReset(row, layer) {
 			player.q.time = new Decimal(0);
 			player.q.energy = new Decimal(0);
 			break;
-		case 4: 
+		case 4:
 			player.h = {
 				unl: player.h.unl,
 				time: 0,
@@ -492,7 +492,7 @@ function rowReset(row, layer) {
 				upgrades: (player.ba.best.gte(5)||player.sp.total.gte(1)||(keepRows1to4))?player.ss.upgrades:[],
 			}
 			break;
-		case 5: 
+		case 5:
 			player.m = {
 				unl: player.m.unl,
 				auto: player.m.auto,
@@ -576,7 +576,7 @@ function rowReset(row, layer) {
 				extraBuildings: (player.mb.total.gte(5)) ? player.i.extraBuildings : new Decimal(0)
 			}
 			break;
-		case 7: 
+		case 7:
 			var start = getStartPlayer()
 			player.mb = start.mb;
 			player.ge = start.ge;
@@ -603,7 +603,7 @@ function getLayerGainMult(layer) {
 			if (player.q.upgrades.includes(11)) mult = mult.times(LAYER_UPGS.q[11].currently())
 			if (tmp.challActive ? tmp.challActive.h[62] : true) mult = mult.times(0)
 			break;
-		case "b": 
+		case "b":
 			if (player.b.upgrades.includes(23)) mult = mult.div(LAYER_UPGS.b[23].currently())
 			if (player.s.unl && tmp.s !== undefined) mult = mult.div(tmp.s.sbEff[3])
 			break;
@@ -611,7 +611,7 @@ function getLayerGainMult(layer) {
 			if (player.g.upgrades.includes(22)) mult = mult.div(LAYER_UPGS.g[22].currently())
 			if (player.s.unl && tmp.s !== undefined) mult = mult.div(tmp.s.sbEff[3])
 			break;
-		case "e": 
+		case "e":
 			if (player.e.upgrades.includes(24)&&!(tmp.challActive?tmp.challActive.h[12]:true)) mult = mult.times(LAYER_UPGS.e[24].currently())
 			if (player.h.best.gte(1)) mult = mult.times(100)
 			if (player.q.total.gte(1)) mult = mult.times(100)
@@ -627,15 +627,15 @@ function getLayerGainMult(layer) {
 			if (player.ss.upgrades.includes(14)) mult = mult.div(1.0825)
 			if (player.l.unl && tmp.l !== undefined) mult = mult.div(tmp.l.lbEff[4])
 			break;
-		case "sg": 
+		case "sg":
 			if (player.sp.upgrades.includes(31)) mult = mult.div(1.45)
 			if (player.sp.upgrades.includes(25)) mult = mult.div(LAYER_UPGS.sp[25].currently())
 			if (player.l.unl && tmp.l !== undefined) mult = mult.div(tmp.l.lbEff[4])
 			break;
-		case "hb": 
+		case "hb":
 			if (player.l.unl && tmp.l !== undefined) mult = mult.div(tmp.l.lbEff[4])
 			break;
-		case "h": 
+		case "h":
 			if (player.h.challs.includes(71)) mult = mult.times(LAYER_CHALLS.h[71].currently())
 			if (player.q.upgrades.includes(22)) mult = mult.times(LAYER_UPGS.q[22].currently().h)
 			if (player.q.upgrades.includes(34)) mult = mult.times(LAYER_UPGS.q[34].currently())
@@ -643,39 +643,39 @@ function getLayerGainMult(layer) {
 			if (player.ba.unl) mult = mult.times(tmp.balEff)
 			if (player.m.unl) mult = mult.times(tmp.hexEff)
 			break;
-		case "q": 
+		case "q":
 			if (player.h.challs.includes(12)) mult = mult.times(LAYER_CHALLS.h[12].currently())
 			if (player.q.upgrades.includes(22)) mult = mult.times(LAYER_UPGS.q[22].currently().q)
 			if (player.q.upgrades.includes(34)) mult = mult.times(LAYER_UPGS.q[34].currently())
 			if (player.ba.unl) mult = mult.times(tmp.balEff)
 			if (player.m.unl) mult = mult.times(tmp.hexEff)
 			break;
-		case "m": 
+		case "m":
 			if (player.sp.upgrades.includes(12)) mult = mult.times(LAYER_UPGS.sp[12].currently())
 			break;
-		case "ba": 
+		case "ba":
 			if (player.sp.upgrades.includes(12)) mult = mult.times(LAYER_UPGS.sp[12].currently())
 			break;
-		case "ps": 
+		case "ps":
 			if (player.ps.upgrades.includes(11)) mult = mult.div(LAYER_UPGS.ps[11].currently())
 			if (tmp.s !== undefined && tmp.s.trueSbUnl >= 7) mult = mult.div(tmp.s.sbEff[7])
 			break;
-		case "sp": 
+		case "sp":
 			if (player.sp.upgrades.includes(24)) mult = mult.times(LAYER_UPGS.sp[24].currently())
 			if (player.sp.upgrades.includes(33)) mult = mult.times(LAYER_UPGS.sp[33].currently())
 			if (player.sp.upgrades.includes(55)) mult = mult.times(LAYER_UPGS.sp[55].currently())
 			if (spellActive(9)) mult = mult.times(tmp.spellEffs[9]);
 			if (player.ge.unl) mult = mult.times(LAYER_CHALLS.ge[22].currently());
 			break;
-		case "l": 
+		case "l":
 			if (player.sp.upgrades.includes(41)) mult = mult.times(LAYER_UPGS.sp[41].currently())
 			break;
-		case "hs": 
+		case "hs":
 			if (player.sp.upgrades.includes(43)) mult = mult.times(LAYER_UPGS.sp[43].currently())
 			if (player.l.unl && tmp.l !== undefined && tmp.l.lbUnl >= 5) mult = mult.times(tmp.l.lbEff[5])
 			if (player.ma.unl && MACHINES[6].unl()) mult = mult.times(MACHINES[6].currently());
 			break;
-		case "i": 
+		case "i":
 			if (player.ge.upgrades.includes(13)) mult = mult.div(LAYER_UPGS.ge[13].currently());
 			break;
 		case "mb":
@@ -691,13 +691,13 @@ function getLayerGainExp(layer) {
 	if (row < 6) exp = fixValue(tmp.i && tmp.i.workEff, 1).recip()
 	if (IMPERIUM.collapsed(row)) exp = exp.times(Decimal.sub(1, tmp.i.collapse[row]))
 	switch(layer) {
-		case "p": 
+		case "p":
 			if (tmp.challActive ? tmp.challActive.h[21] : true) exp = exp.div(100)
 			break;
-		case "ps": 
+		case "ps":
 			if (player.l.order > 0) exp = exp.div(2)
 			break;
-		case "l": 
+		case "l":
 			if (player.l.order > 0) exp = exp.div(2)
 			break;
 		case "hs":
@@ -797,7 +797,7 @@ function doReset(layer, force=false) {
 			let layers = ROW_LAYERS[LAYER_DATA[layer].row-1]
 			for (let i in layers) if (!player[layers[i]].unl && player[layers[i]]!==undefined) player[layers[i]].order += LAYER_DATA[layer].orderUp?1:0
 		}
-	
+
 		tmp.layerAmt[layer] = new Decimal(0) // quick fix
 	}
 
@@ -830,16 +830,16 @@ function adjustMSDisp() {
 
 function milestoneShown(complete, auto=false) {
 	switch(player.msDisplay) {
-		case "always": 
+		case "always":
 			return true;
 			break;
-		case "automation": 
+		case "automation":
 			return auto||!complete
 			break;
 		case "incomplete":
 			return !complete
 			break;
-		case "never": 
+		case "never":
 			return false;
 			break;
 	}
