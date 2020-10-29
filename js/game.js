@@ -5,11 +5,11 @@ var NaNalert = false;
 var gameEnded = false;
 var styleCooldown = 0;
 let VERSION = {
-	num: 0.01,
+	num: 1.0,
 	name: "Alpha 1"
 }
 
-VERSION.withoutName = "v" + VERSION.num + (VERSION.pre ? " Pre-Release " + VERSION.pre : VERSION.beta ? " Beta " + VERSION.beta : "") + (VERSION.patch ? (" Patch " + VERSION.patch) : "")
+VERSION.withoutName = "V" + VERSION.num + (VERSION.pre ? " Pre-Release " + VERSION.pre : VERSION.beta ? " Beta " + VERSION.beta : "") + (VERSION.patch ? (" Patch " + VERSION.patch) : "")
 VERSION.withName = VERSION.withoutName + (VERSION.name ? ": " + VERSION.name : "")
 
 const ENDGAME = new Decimal("e1e11");
