@@ -5,8 +5,8 @@ var NaNalert = false;
 var gameEnded = false;
 var styleCooldown = 0;
 let VERSION = {
-	num: 1.2,
-	name: "The Mechanical Update"
+	num: 0.01,
+	name: "Alpha 1"
 }
 
 VERSION.withoutName = "v" + VERSION.num + (VERSION.pre ? " Pre-Release " + VERSION.pre : VERSION.beta ? " Beta " + VERSION.beta : "") + (VERSION.patch ? (" Patch " + VERSION.patch) : "")
@@ -90,7 +90,7 @@ function getStartPlayer() {
 			upgrades: [],
 		},
 		sb: {
-			unl: false, 
+			unl: false,
 			order: 0,
 			auto: false,
 			points: new Decimal(0),
@@ -274,7 +274,7 @@ function load() {
 
 function exportSave() {
 	let str = btoa(JSON.stringify(player))
-	
+
 	const el = document.createElement("textarea");
 	el.value = str;
 	document.body.appendChild(el);
@@ -297,7 +297,7 @@ function importSave(imported=undefined) {
 
 function versionCheck() {
 	let setVersion = true
-	
+
 	if (player.versionType===undefined||player.version===undefined) {
 		player.versionType = "alpha"
 		player.version = 0
@@ -314,7 +314,7 @@ function versionCheck() {
 			player.ss.order = 0
 		}
 	}
-	
+
 	if (setVersion) {
 		if (player.versionType == "real" && VERSION.num > player.version) player.keepGoing = false
 		player.versionType = getStartPlayer().versionType
@@ -337,7 +337,7 @@ function checkForVars() {
 
 		if (LAYER_CHALLS[layer] !== undefined && player[layer].challs === undefined) player[layer].challs = []
 		if (LAYER_CHALLS[layer] === undefined && player[layer].challs !== undefined) delete player[layer].challs
-		
+
 		if (player.notify[layer] === undefined) player.notify[layer] = 0
 	}
 	if (player.autosave===undefined) player.autosave = true;
@@ -432,7 +432,7 @@ function convertToDecimal() {
 
 function toggleOpt(name) {
 	if (name == "oldStyle" && styleCooldown>0) return;
-	
+
 	player[name] = !player[name]
 	if (name == "hqTree") changeTreeQuality()
 	if (name == "oldStyle") updateStyle()
@@ -521,7 +521,7 @@ function showTab(name) {
 
 	var toTreeTab = name == "tree"
 	player.tab = name
-	
+
 	if (toTreeTab != onTreeTab) {
 		document.getElementById("treeTab").className = toTreeTab ? "fullWidth" : "col left"
 		onTreeTab = toTreeTab
@@ -538,7 +538,7 @@ function notifyLayer(name) {
 function updateNotifies() {
 	// Excuse my gross spaghetti code
 	for (let layer in LAYER_DATA) if (LAYER_UPGS[layer]) for (let r=1;r<=LAYER_UPGS[layer].rows;r++) for (let c=1;c<=LAYER_UPGS[layer].cols;c++) if (player[layer][LAYER_UPGS[layer].varType||'points'].gte(LAYER_UPGS[layer][r*10+c].cost)&&!player[layer].upgrades.includes(r*10+c)&&LAYER_UPGS[layer][r*10+c].unl()) notifyLayer(layer)
-	
+
 	for (let i=1;i<=SPACE_BUILDINGS.max;i++) if (HYPERSPACE.canSuperUpg(i)) notifyLayer("hs")
 }
 
@@ -554,7 +554,7 @@ function generatePoints(layer, diff) {
 
 function getPointGen() {
 	if (tmp.challActive ? tmp.challActive.ge[12] : true) return tmp.quirkEff
-	
+
 	let gain = new Decimal(1)
 	if (player.p.upgrades.includes(12)) gain = gain.times(LAYER_UPGS.p[12].currently())
 	if (player.p.upgrades.includes(13)) gain = gain.times(LAYER_UPGS.p[13].currently())
@@ -565,7 +565,7 @@ function getPointGen() {
 	if (player.s.unl && tmp.s !== undefined) gain = gain.times(tmp.s.sbEff[1])
 	if (player.q.unl && tmp.quirkEff) gain = gain.times(tmp.quirkEff)
 	if (player.q.upgrades.includes(11)) gain = gain.times(LAYER_UPGS.q[11].currently())
-		
+
 	if (tmp.challActive ? tmp.challActive.h[31] : true) gain = gain.tetrate(0.1)
 	return gain
 }
@@ -782,37 +782,37 @@ document.onkeydown = function(e) {
 		return
 	} else if ((!LAYER_DATA[key]) || ctrlDown || shiftDown) {
 		switch(key) {
-			case "a": 
+			case "a":
 				if (player.ba.unl) doReset("ba")
 				return
-			case "b": 
+			case "b":
 				if (ctrlDown && player.hb.unl) doReset("hb")
 				return
-			case "B": 
+			case "B":
 				if (player.sb.unl) doReset("sb")
 				return
-			case "g": 
+			case "g":
 				if (ctrlDown && player.ge.unl) doReset("ge")
 				return
-			case "G": 
+			case "G":
 				if (player.sg.unl) doReset("sg")
 				return
-			case "m": 
+			case "m":
 				if (ctrlDown && player.ma.unl) doReset("ma")
 				return
-			case "M": 
+			case "M":
 				if (player.mb.unl) doReset("mb")
 				return
-			case "p": 
+			case "p":
 				if (ctrlDown && player.sp.unl) doReset("ps")
 				return
-			case "P": 
+			case "P":
 				if (player.sp.unl) doReset("sp")
 				return
-			case "s": 
+			case "s":
 				if (ctrlDown && player.hs.unl) doReset("hs")
 				return
-			case "S": 
+			case "S":
 				if (player.ss.unl) doReset("ss")
 				return;
 		}
