@@ -4,11 +4,11 @@ const LAYER_DATA = {
 	p: {
 		branches: [],
 		getReq() { return new Decimal(10) },
-		res: "prestige points",
+		res: "Sparks Of Power",
 		type: "normal",
 		exp: new Decimal(.5),
 		row: 1,
-		amtName: "Electrons",
+		amtName: "Sparks",
 		getAmt() { return player.points },
 		shown() { return true },
 	},
